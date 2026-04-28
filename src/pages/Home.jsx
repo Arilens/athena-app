@@ -250,16 +250,18 @@ function Home() {
 <style>{`
   .modalidades-wrap {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     padding: 0 20px 4px;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .modal-card {
-    min-width: 170px;
+    min-width: 145px;
+    max-width: 145px;
     flex-shrink: 0;
   }
   .modal-foto {
-    height: 100px;
+    height: 85px;
   }
   @media (min-width: 768px) {
     .modalidades-wrap {
@@ -269,6 +271,7 @@ function Home() {
     }
     .modal-card {
       min-width: unset;
+      max-width: unset;
     }
     .modal-foto {
       height: 130px;
