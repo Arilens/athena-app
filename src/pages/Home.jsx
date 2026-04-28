@@ -242,48 +242,79 @@ function Home() {
         </div>
 
         {/* MODALIDADES */}
-        <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
-          Modalidades e Horários
+<div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
+  Modalidades e Horários
+</div>
+
+{/* GRID NO DESKTOP, SCROLL NO MOBILE */}
+<style>{`
+  .modalidades-wrap {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 4px;
+    overflow-x: auto;
+  }
+  .modal-card {
+    min-width: 170px;
+    flex-shrink: 0;
+  }
+  .modal-foto {
+    height: 100px;
+  }
+  @media (min-width: 768px) {
+    .modalidades-wrap {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      overflow-x: visible;
+    }
+    .modal-card {
+      min-width: unset;
+    }
+    .modal-foto {
+      height: 130px;
+    }
+  }
+`}</style>
+
+<div className="modalidades-wrap">
+  {modalidadesData.map(mod => {
+    const contratado = contratados.includes(mod.id)
+    return (
+      <div key={mod.id} className="modal-card" style={{
+        background: '#1a1a1a', borderRadius: '12px',
+        overflow: 'hidden', border: `1px solid ${contratado ? '#4CAF50' : 'rgba(255,255,255,0.08)'}`,
+        transition: 'border-color 0.3s'
+      }}>
+        <div className="modal-foto" style={{ overflow: 'hidden', position: 'relative' }}>
+          <img src={mod.foto} alt={mod.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          {contratado && (
+            <div style={{
+              position: 'absolute', top: '8px', right: '8px',
+              background: '#4CAF50', borderRadius: '12px', padding: '2px 8px',
+              fontSize: '10px', fontWeight: '700', color: 'white'
+            }}>✓ ATIVO</div>
+          )}
         </div>
-        <div style={{ display: 'flex', gap: '12px', padding: '0 20px 4px', overflowX: 'auto', scrollbarWidth: 'none' }}>
-          {modalidadesData.map(mod => {
-            const contratado = contratados.includes(mod.id)
-            return (
-              <div key={mod.id} style={{
-                minWidth: '190px', background: '#1a1a1a', borderRadius: '12px',
-                overflow: 'hidden', border: `1px solid ${contratado ? '#4CAF50' : 'rgba(255,255,255,0.08)'}`,
-                flexShrink: 0, transition: 'border-color 0.3s'
-              }}>
-                <div style={{ height: '110px', overflow: 'hidden', position: 'relative' }}>
-                  <img src={mod.foto} alt={mod.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {contratado && (
-                    <div style={{
-                      position: 'absolute', top: '8px', right: '8px',
-                      background: '#4CAF50', borderRadius: '12px', padding: '2px 8px',
-                      fontSize: '10px', fontWeight: '700', color: 'white'
-                    }}>✓ ATIVO</div>
-                  )}
-                </div>
-                <div style={{ padding: '10px 12px' }}>
-                  <div style={{ fontWeight: '800', fontSize: '15px', letterSpacing: '1px' }}>{mod.nome}</div>
-                  <div style={{ fontSize: '10px', color: '#888', marginTop: '3px' }}>{mod.dias}</div>
-                  <div style={{ fontSize: '12px', color: '#D4A017', fontWeight: '600', marginTop: '6px' }}>{mod.preco}</div>
-                  <button
-                    onClick={() => !contratado && setModalAberto(mod.id)}
-                    style={{
-                      width: '100%', marginTop: '8px', padding: '9px',
-                      background: contratado ? '#4CAF50' : '#CC1A1A',
-                      border: 'none', borderRadius: '6px', color: 'white',
-                      fontSize: '11px', fontWeight: '800', letterSpacing: '1px',
-                      cursor: contratado ? 'default' : 'pointer', textTransform: 'uppercase',
-                      transition: 'background 0.3s'
-                    }}
-                  >{contratado ? '✓ CONTRATADO' : 'CONTRATAR'}</button>
-                </div>
-              </div>
-            )
-          })}
+        <div style={{ padding: '10px 12px' }}>
+          <div style={{ fontWeight: '800', fontSize: '13px', letterSpacing: '1px' }}>{mod.nome}</div>
+          <div style={{ fontSize: '10px', color: '#888', marginTop: '3px' }}>{mod.dias}</div>
+          <div style={{ fontSize: '11px', color: '#D4A017', fontWeight: '600', marginTop: '6px' }}>{mod.preco}</div>
+          <button
+            onClick={() => !contratado && setModalAberto(mod.id)}
+            style={{
+              width: '100%', marginTop: '8px', padding: '9px',
+              background: contratado ? '#4CAF50' : '#CC1A1A',
+              border: 'none', borderRadius: '6px', color: 'white',
+              fontSize: '11px', fontWeight: '800', letterSpacing: '1px',
+              cursor: contratado ? 'default' : 'pointer', textTransform: 'uppercase',
+              transition: 'background 0.3s'
+            }}
+          >{contratado ? '✓ CONTRATADO' : 'CONTRATAR'}</button>
         </div>
+      </div>
+    )
+  })}
+</div>
 
         {/* ACESSO RÁPIDO */}
         <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
