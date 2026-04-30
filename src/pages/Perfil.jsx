@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const Watermark = () => (
   <div style={{
@@ -41,6 +42,12 @@ const evolucao = [
 
 function Perfil() {
   const navigate = useNavigate()
+  const [modoEscuro, setModoEscuro] = useState(true)
+
+  useEffect(() => {
+    document.body.style.background = modoEscuro ? '#0d0d0d' : '#f0f0f0'
+    document.body.style.color = modoEscuro ? 'white' : '#111'
+  }, [modoEscuro])
 
   const navItems = [
     { id: 'home', icon: '🏠', label: 'Início', path: '/home' },
@@ -167,6 +174,44 @@ function Perfil() {
             </div>
           ))}
         </div>
+
+        {/* MODO CLARO/ESCURO */}
+<div style={{ padding: '0 16px 12px' }}>
+  <div style={{
+    background: modoEscuro ? '#1a1a1a' : '#e0e0e0',
+    border: `1px solid ${modoEscuro ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`,
+    borderRadius: '10px', padding: '14px 16px',
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+  }}>
+    <div>
+      <div style={{ fontSize: '14px', fontWeight: '500', color: modoEscuro ? 'white' : '#111' }}>
+        {modoEscuro ? '🌙 Modo Escuro' : '☀️ Modo Claro'}
+      </div>
+      <div style={{ fontSize: '11px', color: modoEscuro ? '#888' : '#666', marginTop: '2px' }}>
+        Aparência do app
+      </div>
+    </div>
+    {/* TOGGLE */}
+    <div
+      onClick={() => setModoEscuro(!modoEscuro)}
+      style={{
+        width: '48px', height: '26px',
+        background: modoEscuro ? '#CC1A1A' : '#ccc',
+        borderRadius: '13px', position: 'relative', cursor: 'pointer',
+        transition: 'background 0.3s'
+      }}
+    >
+      <div style={{
+        position: 'absolute', top: '3px',
+        left: modoEscuro ? '25px' : '3px',
+        width: '20px', height: '20px',
+        background: 'white', borderRadius: '50%',
+        transition: 'left 0.3s',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.3)'
+      }} />
+    </div>
+  </div>
+</div>
 
         {/* SAIR */}
         <div style={{ padding: '8px 16px 16px' }}>
