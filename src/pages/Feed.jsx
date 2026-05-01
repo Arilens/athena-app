@@ -9,7 +9,7 @@ const Watermark = () => (
     overflow: 'hidden', alignContent: 'flex-start'
   }}>
     {Array.from({length: 40}).map((_, i) => (
-      <span key={i} style={{ color: 'white', fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
+      <span key={i} style={{ color: Tema.text, fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
         {['ATHENA', '⚡', 'CROSS TRAINING', 'Λ'][i % 4]}
       </span>
     ))}
@@ -104,18 +104,18 @@ function Feed() {
   }
 
   return (
-    <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', position: 'relative' }}>
+    <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, position: 'relative' }}>
       <Watermark />
       <div style={{ zIndex: 1, position: 'relative', paddingBottom: '80px' }}>
 
         {/* HEADER */}
-        <div style={{ background: '#111', padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ background: tema.headerBg, padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img src="/logo.jpeg" alt="Athena" style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1.5px solid #CC1A1A', objectFit: 'cover' }} />
           <div style={{ fontSize: '22px', fontWeight: '900', letterSpacing: '2px' }}>COMUNIDADE</div>
         </div>
 
         {/* ABAS */}
-        <div style={{ display: 'flex', background: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ display: 'flex', background: tema.surface, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           {[
             { id: 'feed', label: 'Feed' },
             { id: 'desafios', label: 'Desafios 🏆' },
@@ -123,7 +123,7 @@ function Feed() {
           ].map(a => (
             <button key={a.id} onClick={() => setAba(a.id)} style={{
               flex: 1, padding: '13px', background: 'none', border: 'none',
-              color: aba === a.id ? '#CC1A1A' : '#888',
+              color: aba === a.id ? '#CC1A1A' : tema.textMuted,
               borderBottom: `2px solid ${aba === a.id ? '#CC1A1A' : 'transparent'}`,
               fontSize: '13px', cursor: 'pointer', fontFamily: 'sans-serif',
               transition: 'all 0.2s'
@@ -140,9 +140,9 @@ function Feed() {
                 <div
                   onClick={() => setMostrarInput(true)}
                   style={{
-                    background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
+                    background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: '24px', padding: '12px 16px',
-                    color: '#888', cursor: 'pointer', fontSize: '13px'
+                    color: tema.textMuted, cursor: 'pointer', fontSize: '13px'
                   }}
                 >
                   💪 Compartilhe sua evolução, Franchesco...
@@ -154,8 +154,8 @@ function Feed() {
                     onChange={e => setNovoPost(e.target.value)}
                     placeholder="O que você quer compartilhar?"
                     style={{
-                      width: '100%', background: '#1a1a1a', border: '1px solid #CC1A1A',
-                      borderRadius: '8px', padding: '12px', color: 'white',
+                      width: '100%', background: tema.surface, border: '1px solid #CC1A1A',
+                      borderRadius: '8px', padding: '12px', color: tema.text,
                       fontSize: '13px', fontFamily: 'sans-serif', resize: 'none',
                       boxSizing: 'border-box', minHeight: '80px', outline: 'none'
                     }}
@@ -163,12 +163,12 @@ function Feed() {
                   <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
                     <button onClick={publicar} style={{
                       flex: 1, padding: '10px', background: '#CC1A1A', border: 'none',
-                      borderRadius: '6px', color: 'white', fontWeight: '800',
+                      borderRadius: '6px', color: tema.text, fontWeight: '800',
                       fontSize: '13px', cursor: 'pointer', letterSpacing: '1px'
                     }}>PUBLICAR</button>
                     <button onClick={() => setMostrarInput(false)} style={{
                       padding: '10px 16px', background: '#242424', border: 'none',
-                      borderRadius: '6px', color: '#888', fontSize: '13px', cursor: 'pointer'
+                      borderRadius: '6px', color: tema.textMuted, fontSize: '13px', cursor: 'pointer'
                     }}>Cancelar</button>
                   </div>
                 </div>
@@ -177,21 +177,21 @@ function Feed() {
 
             {/* POSTS */}
             {posts.map(post => (
-              <div key={post.id} style={{ background: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '14px 16px' }}>
+              <div key={post.id} style={{ background: tema.surface, borderBottom: '1px solid rgba(255,255,255,0.08)', padding: '14px 16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
                   <div style={{
                     width: '38px', height: '38px', borderRadius: '50%',
                     background: post.cor, display: 'flex', alignItems: 'center',
                     justifyContent: 'center', fontSize: '13px', fontWeight: '700',
                     border: post.coach ? '1.5px solid #CC1A1A' : '1px solid rgba(255,255,255,0.1)',
-                    flexShrink: 0, color: 'white'
+                    flexShrink: 0, color: tema.text
                   }}>{post.initials}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '13px', fontWeight: '600' }}>
                       {post.autor}
                       {post.coach && <span style={{ fontSize: '9px', background: 'rgba(204,26,26,0.2)', color: '#FF6B6B', padding: '1px 6px', borderRadius: '4px', marginLeft: '6px' }}>COACH</span>}
                     </div>
-                    <div style={{ fontSize: '10px', color: '#888', marginTop: '1px' }}>{post.tempo}</div>
+                    <div style={{ fontSize: '10px', color: tema.textMuted, marginTop: '1px' }}>{post.tempo}</div>
                   </div>
                 </div>
                 <div style={{ fontSize: '13px', lineHeight: '1.5', marginBottom: '10px' }}>{post.texto}</div>
@@ -205,13 +205,13 @@ function Feed() {
                 <div style={{ display: 'flex', gap: '16px' }}>
                   <button onClick={() => curtir(post.id)} style={{
                     background: 'none', border: 'none',
-                    color: post.reacao === '❤️' ? '#CC1A1A' : '#888',
+                    color: post.reacao === '❤️' ? '#CC1A1A' : tema.textMuted,
                     fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px',
                     fontFamily: 'sans-serif'
                   }}>❤️ {post.curtidas}</button>
-                  <button style={{ background: 'none', border: 'none', color: '#888', fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>💬 {post.comentarios}</button>
-                  <button style={{ background: 'none', border: 'none', color: '#888', fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>🎉</button>
-                  <button style={{ background: 'none', border: 'none', color: '#888', fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>🔥</button>
+                  <button style={{ background: 'none', border: 'none', color: tema.textMuted, fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>💬 {post.comentarios}</button>
+                  <button style={{ background: 'none', border: 'none', color: tema.textMuted, fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>🎉</button>
+                  <button style={{ background: 'none', border: 'none', color: tema.textMuted, fontSize: '12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>🔥</button>
                 </div>
               </div>
             ))}
@@ -223,7 +223,7 @@ function Feed() {
           <div style={{ padding: '12px 16px' }}>
             {desafiosList.map(d => (
               <div key={d.id} style={{
-                background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
+                background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '12px', overflow: 'hidden', marginBottom: '12px'
               }}>
                 <div style={{ background: d.cor, padding: '14px 16px' }}>
@@ -231,12 +231,12 @@ function Feed() {
                   <div style={{ fontSize: '11px', color: '#D4A017', marginTop: '3px' }}>{d.pts}</div>
                 </div>
                 <div style={{ padding: '12px 16px' }}>
-                  <div style={{ fontSize: '12px', color: '#888', lineHeight: '1.5', marginBottom: '10px' }}>{d.desc}</div>
+                  <div style={{ fontSize: '12px', color: tema.textMuted, lineHeight: '1.5', marginBottom: '10px' }}>{d.desc}</div>
                   <button
                     onClick={() => aceitarDesafio(d.id)}
                     style={{
                       width: '100%', padding: '10px', background: d.aceito ? '#333' : d.corBtn,
-                      border: 'none', borderRadius: '6px', color: d.aceito ? '#888' : 'white',
+                      border: 'none', borderRadius: '6px', color: d.aceito ? tema.textMuted : tema.text,
                       fontWeight: '800', fontSize: '13px', cursor: d.aceito ? 'default' : 'pointer',
                       letterSpacing: '1px', textTransform: 'uppercase'
                     }}
@@ -260,7 +260,7 @@ function Feed() {
                 <div style={{ fontSize: '32px' }}>🔴</div>
                 <div>
                   <div style={{ fontWeight: '900', fontSize: '20px', letterSpacing: '2px', color: '#FF6B6B' }}>TEAM ATHENA</div>
-                  <div style={{ fontSize: '10px', color: '#888', marginTop: '2px' }}>501+ pontos • Guerreiros veteranos</div>
+                  <div style={{ fontSize: '10px', color: tema.textMuted, marginTop: '2px' }}>501+ pontos • Guerreiros veteranos</div>
                 </div>
               </div>
               <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', marginBottom: '12px' }}>
@@ -269,15 +269,15 @@ function Feed() {
               <div style={{ display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px', color: '#FF6B6B' }}>23</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>MEMBROS</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>MEMBROS</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px', color: '#D4A017' }}>501+</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>PONTOS MÍN.</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>PONTOS MÍN.</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px', color: '#4CAF50' }}>🏆</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>TROFÉU</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>TROFÉU</div>
                 </div>
               </div>
             </div>
@@ -292,7 +292,7 @@ function Feed() {
                 <div style={{ fontSize: '32px' }}>🔵</div>
                 <div>
                   <div style={{ fontWeight: '900', fontSize: '20px', letterSpacing: '2px', color: '#7BB8E8' }}>TEAM APOLLO</div>
-                  <div style={{ fontSize: '10px', color: '#888', marginTop: '2px' }}>0–500 pontos • Em ascensão</div>
+                  <div style={{ fontSize: '10px', color: tema.textMuted, marginTop: '2px' }}>0–500 pontos • Em ascensão</div>
                 </div>
               </div>
               <div style={{ fontSize: '12px', color: '#aaa', lineHeight: '1.6', marginBottom: '12px' }}>
@@ -301,15 +301,15 @@ function Feed() {
               <div style={{ display: 'flex', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '10px 14px' }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px', color: '#7BB8E8' }}>31</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>MEMBROS</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>MEMBROS</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px', color: '#7BB8E8' }}>0–500</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>PONTOS</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>PONTOS</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontWeight: '900', fontSize: '20px' }}>⚡</div>
-                  <div style={{ fontSize: '9px', color: '#888' }}>ENERGIA</div>
+                  <div style={{ fontSize: '9px', color: tema.textMuted }}>ENERGIA</div>
                 </div>
               </div>
             </div>
@@ -320,9 +320,9 @@ function Feed() {
               border: '1px solid rgba(204,26,26,0.3)', borderRadius: '10px', padding: '14px',
               textAlign: 'center'
             }}>
-              <div style={{ fontSize: '11px', color: '#888', marginBottom: '4px' }}>VOCÊ ESTÁ NO</div>
+              <div style={{ fontSize: '11px', color: tema.textMuted, marginBottom: '4px' }}>VOCÊ ESTÁ NO</div>
               <div style={{ fontWeight: '900', fontSize: '18px', color: '#FF6B6B', letterSpacing: '2px' }}>🔴 TEAM ATHENA</div>
-              <div style={{ fontSize: '11px', color: '#888', marginTop: '4px' }}>643 pontos • Continue treinando! 💪</div>
+              <div style={{ fontSize: '11px', color: tema.textMuted, marginTop: '4px' }}>643 pontos • Continue treinando! 💪</div>
             </div>
           </div>
         )}
@@ -332,13 +332,13 @@ function Feed() {
       {/* BOTTOM NAV */}
       <div style={{
         position: 'fixed', bottom: 0, left: 0, width: '100%',
-        background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)',
+        background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)',
         display: 'flex', zIndex: 100
       }}>
         {navItems.map(item => (
           <button key={item.id} onClick={() => navigate(item.path)} style={{
             flex: 1, padding: '10px 4px 12px', background: 'none', border: 'none',
-            color: item.id === 'feed' ? '#CC1A1A' : '#888',
+            color: item.id === 'feed' ? '#CC1A1A' : tema.textMuted,
             fontSize: '9px', cursor: 'pointer',
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px'
           }}>

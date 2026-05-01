@@ -89,7 +89,7 @@ const Watermark = () => (
     overflow: 'hidden', alignContent: 'flex-start'
   }}>
     {Array.from({length: 40}).map((_, i) => (
-      <span key={i} style={{ color: 'white', fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
+      <span key={i} style={{ color: tema.text, fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
         {['ATHENA', '⚡', 'CROSS TRAINING', 'Λ'][i % 4]}
       </span>
     ))}
@@ -127,13 +127,13 @@ function Agenda() {
   const semanas = 5
 
   return (
-    <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', position: 'relative' }}>
+    <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, position: 'relative' }}>
       <Watermark />
 
       <div style={{ zIndex: 1, position: 'relative', paddingBottom: '80px' }}>
 
         {/* HEADER */}
-        <div style={{ background: '#111', padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ background: tema.headerBg, padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img src="/logo.jpeg" alt="Athena" style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1.5px solid #CC1A1A', objectFit: 'cover' }} />
           <div style={{ fontSize: '22px', fontWeight: '900', letterSpacing: '2px' }}>AGENDAR AULAS</div>
         </div>
@@ -146,7 +146,7 @@ function Agenda() {
             { num: `🏆 ${semanas}`, label: 'Semanas', cor: '#D4A017' },
           ].map(s => (
             <div key={s.label} style={{
-              background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
+              background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '10px', padding: '12px', textAlign: 'center'
             }}>
               <div style={{ fontWeight: '900', fontSize: '22px', color: s.cor }}>{s.num}</div>
@@ -163,15 +163,15 @@ function Agenda() {
               onClick={() => aulasPorDia[dia.num] && setDiaSelecionado(dia.num)}
               style={{
                 minWidth: '46px', padding: '8px 4px',
-                background: diaSelecionado === dia.num ? '#CC1A1A' : '#1a1a1a',
+                background: diaSelecionado === dia.num ? '#CC1A1A' : tema.surface,
                 border: `1px solid ${diaSelecionado === dia.num ? '#CC1A1A' : 'rgba(255,255,255,0.08)'}`,
                 borderRadius: '10px', textAlign: 'center', cursor: 'pointer',
                 flexShrink: 0, transition: 'all 0.2s'
               }}
             >
-              <div style={{ fontSize: '9px', color: diaSelecionado === dia.num ? 'rgba(255,255,255,0.7)' : '#888', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{dia.nome}</div>
+              <div style={{ fontSize: '9px', color: diaSelecionado === dia.num ? 'rgba(255,255,255,0.7)' : tema.textMuted, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{dia.nome}</div>
               <div style={{ fontWeight: '900', fontSize: '18px', marginTop: '2px' }}>{dia.num}</div>
-              <div style={{ fontSize: '10px', color: dia.treinou ? '#4CAF50' : dia.hoje ? 'white' : 'transparent' }}>
+              <div style={{ fontSize: '10px', color: dia.treinou ? '#4CAF50' : dia.hoje ? tema.text : 'transparent' }}>
                 {dia.treinou ? '✓' : dia.hoje ? 'hoje' : '·'}
               </div>
             </div>
@@ -181,14 +181,14 @@ function Agenda() {
         {/* AULAS DO DIA */}
         <div style={{ padding: '0 16px' }}>
           {aulasHoje.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#888' }}>
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: tema.textMuted }}>
               <div style={{ fontSize: '32px', marginBottom: '10px' }}>😴</div>
               <div>Sem aulas neste dia</div>
             </div>
           ) : (
             aulasHoje.map((aula, index) => (
               <div key={index} style={{
-                background: aula.agendado ? 'rgba(76,175,80,0.05)' : '#1a1a1a',
+                background: aula.agendado ? 'rgba(76,175,80,0.05)' : tema.surface,
                 border: `1px solid ${aula.agendado ? '#4CAF50' : 'rgba(255,255,255,0.08)'}`,
                 borderRadius: '10px', padding: '14px', marginBottom: '10px',
                 display: 'flex', alignItems: 'center', gap: '12px'
@@ -196,7 +196,7 @@ function Agenda() {
                 <div style={{ fontWeight: '900', fontSize: '20px', color: '#CC1A1A', minWidth: '52px' }}>{aula.hora}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '14px', fontWeight: '600' }}>{aula.nome}</div>
-                  <div style={{ fontSize: '11px', color: '#888', marginTop: '2px' }}>{aula.coach}</div>
+                  <div style={{ fontSize: '11px', color: tema.textMuted, marginTop: '2px' }}>{aula.coach}</div>
                   <div style={{ fontSize: '10px', color: '#666', marginTop: '2px' }}>
                     {aula.agendado ? 'Agendado ✓' : `${aula.vagas} vagas restantes`}
                   </div>
@@ -226,13 +226,13 @@ function Agenda() {
       {/* BOTTOM NAV */}
       <div style={{
         position: 'fixed', bottom: 0, left: 0, width: '100%',
-        background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)',
+        background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)',
         display: 'flex', zIndex: 100
       }}>
         {navItems.map(item => (
           <button key={item.id} onClick={() => navigate(item.path)} style={{
             flex: 1, padding: '10px 4px 12px', background: 'none', border: 'none',
-            color: abaAtiva === item.id ? '#CC1A1A' : '#888',
+            color: abaAtiva === item.id ? '#CC1A1A' : tema.textMuted,
             fontSize: '9px', cursor: 'pointer',
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px'
           }}>

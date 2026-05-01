@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useTema } from '../ThemeContext'
 
 const modalidadesData = [
   { id: 'crossfit', nome: 'CrossFit', foto: '/foto-crossfit.jpeg', dias: 'Seg a Sex • 06h às 21h', preco: 'A partir de R$ 209/mês' },
@@ -24,7 +25,7 @@ const Watermark = () => (
     overflow: 'hidden', alignContent: 'flex-start'
   }}>
     {Array.from({length: 40}).map((_, i) => (
-      <span key={i} style={{ color: 'white', fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
+      <span key={i} style={{ color: tema.text, fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
         {['ATHENA', '⚡', 'CROSS TRAINING', 'Λ'][i % 4]}
       </span>
     ))}
@@ -52,7 +53,7 @@ function ModalContratacao({ mod, onFechar, onConfirmar, jaContratado }) {
       display: 'flex', alignItems: 'flex-end', justifyContent: 'center'
     }}>
       <div style={{
-        background: '#1a1a1a', width: '100%', maxWidth: '500px',
+        background: tema.surface, width: '100%', maxWidth: '500px',
         borderRadius: '16px 16px 0 0', padding: '24px',
         border: '1px solid rgba(255,255,255,0.1)'
       }}>
@@ -62,7 +63,7 @@ function ModalContratacao({ mod, onFechar, onConfirmar, jaContratado }) {
         </div>
 
         <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '11px', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Escolha o plano</div>
+          <div style={{ fontSize: '11px', color: tema.textMuted, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Escolha o plano</div>
           {planos.map(p => (
             <div key={p} onClick={() => setPlano(p)} style={{
               padding: '12px 14px', background: plano === p ? 'rgba(204,26,26,0.15)' : '#242424',
@@ -74,7 +75,7 @@ function ModalContratacao({ mod, onFechar, onConfirmar, jaContratado }) {
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <div style={{ fontSize: '11px', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Forma de pagamento</div>
+          <div style={{ fontSize: '11px', color: tema.textMuted, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Forma de pagamento</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
             {['💳 Cartão de Crédito', '📱 PIX'].map(p => (
               <div key={p} onClick={() => setPagamento(p)} style={{
@@ -87,7 +88,7 @@ function ModalContratacao({ mod, onFechar, onConfirmar, jaContratado }) {
           </div>
         </div>
 
-        <div style={{ fontSize: '11px', color: '#888', marginBottom: '16px', background: '#111', padding: '10px', borderRadius: '8px' }}>
+        <div style={{ fontSize: '11px', color: tema.textMuted, marginBottom: '16px', background: tema.headerBg, padding: '10px', borderRadius: '8px' }}>
           ℹ️ Taxa de matrícula: R$30,00 • Planos anuais têm desconto progressivo
         </div>
 
@@ -95,7 +96,7 @@ function ModalContratacao({ mod, onFechar, onConfirmar, jaContratado }) {
           onClick={() => plano && pagamento && onConfirmar(mod.id)}
           style={{
             width: '100%', padding: '15px', background: plano && pagamento ? '#CC1A1A' : '#333',
-            border: 'none', borderRadius: '8px', color: plano && pagamento ? 'white' : '#666',
+            border: 'none', borderRadius: '8px', color: plano && pagamento ? tema.text : '#666',
             fontWeight: '900', fontSize: '15px', letterSpacing: '2px',
             cursor: plano && pagamento ? 'pointer' : 'default', textTransform: 'uppercase'
           }}
@@ -113,7 +114,7 @@ function ModalMomento({ momento, onFechar }) {
       display: 'flex', flexDirection: 'column'
     }}>
       <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <button onClick={onFechar} style={{ background: 'none', border: 'none', color: '#888', fontSize: '22px', cursor: 'pointer' }}>←</button>
+        <button onClick={onFechar} style={{ background: 'none', border: 'none', color: tema.textMuted, fontSize: '22px', cursor: 'pointer' }}>←</button>
         <div style={{ fontSize: '20px', fontWeight: '900', letterSpacing: '1px' }}>{momento.icon} {momento.nome.toUpperCase()}</div>
       </div>
       <div style={{ flex: 1, overflow: 'auto', padding: '16px' }}>
@@ -123,7 +124,7 @@ function ModalMomento({ momento, onFechar }) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
               {[1, 2, 3, 4].map(n => (
                 <div key={n} style={{
-                  height: '110px', background: '#1a1a1a',
+                  height: '110px', background: tema.surface,
                   border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexDirection: 'column', gap: '6px', color: '#555', fontSize: '11px'
@@ -148,6 +149,7 @@ function Home() {
   const [contratados, setContratados] = useState(['crossfit'])
   const [modalAberto, setModalAberto] = useState(null)
   const [momentoAberto, setMomentoAberto] = useState(null)
+  const tema = useTema()
 
   const confirmarContratacao = (id) => {
     setContratados(prev => [...prev, id])
@@ -155,7 +157,7 @@ function Home() {
   }
 
   return (
-    <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', position: 'relative' }}>
+    <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, position: 'relative' }}>
       <Watermark />
 
       {modalAberto && (
@@ -182,7 +184,7 @@ function Home() {
   padding: '28px 20px 20px',
   borderBottom: '1px solid rgba(255,255,255,0.08)',
   position: 'relative', overflow: 'hidden',
-  background: 'linear-gradient(135deg, #0d0d0d 0%, #1a0000 50%, #0d0d0d 100%)',
+  background: 'linear-gradient(135deg, tema.bg 0%, #1a0000 50%, tema.bg 100%)',
   minHeight: '120px'
 }}>
   {/* LOGO GIGANTE DESFOCADO ATRÁS */}
@@ -214,7 +216,7 @@ function Home() {
 
   {/* CONTEÚDO */}
   <div style={{ position: 'relative', zIndex: 1 }}>
-    <div style={{ fontSize: '12px', color: '#888', letterSpacing: '1px' }}>Bom dia,</div>
+    <div style={{ fontSize: '12px', color: tema.textMuted, letterSpacing: '1px' }}>Bom dia,</div>
     <div style={{ fontSize: '28px', fontWeight: '900', letterSpacing: '3px', marginTop: '2px', textShadow: '0 2px 10px rgba(204,26,26,0.3)' }}>FRANCHESCO</div>
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: '6px',
@@ -230,9 +232,9 @@ function Home() {
 </div>
 
         {/* PONTOS */}
-        <div style={{ padding: '14px 20px', background: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ padding: '14px 20px', background: tema.surface, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', color: '#888' }}>Pontos acumulados</span>
+            <span style={{ fontSize: '12px', color: tema.textMuted }}>Pontos acumulados</span>
             <span style={{ fontWeight: '900', fontSize: '18px', color: '#CC1A1A' }}>🏆 643 pts</span>
           </div>
           <div style={{ height: '6px', background: '#242424', borderRadius: '3px', overflow: 'hidden' }}>
@@ -242,7 +244,7 @@ function Home() {
         </div>
 
         {/* MODALIDADES */}
-<div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
+<div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: tema.textMuted, textTransform: 'uppercase' }}>
   Modalidades e Horários
 </div>
 
@@ -284,7 +286,7 @@ function Home() {
     const contratado = contratados.includes(mod.id)
     return (
       <div key={mod.id} className="modal-card" style={{
-        background: '#1a1a1a', borderRadius: '12px',
+        background: tema.surface, borderRadius: '12px',
         overflow: 'hidden', border: `1px solid ${contratado ? '#4CAF50' : 'rgba(255,255,255,0.08)'}`,
         transition: 'border-color 0.3s'
       }}>
@@ -294,20 +296,20 @@ function Home() {
             <div style={{
               position: 'absolute', top: '8px', right: '8px',
               background: '#4CAF50', borderRadius: '12px', padding: '2px 8px',
-              fontSize: '10px', fontWeight: '700', color: 'white'
+              fontSize: '10px', fontWeight: '700', color: tema.text
             }}>✓ ATIVO</div>
           )}
         </div>
         <div style={{ padding: '10px 12px' }}>
           <div style={{ fontWeight: '800', fontSize: '13px', letterSpacing: '1px' }}>{mod.nome}</div>
-          <div style={{ fontSize: '10px', color: '#888', marginTop: '3px' }}>{mod.dias}</div>
+          <div style={{ fontSize: '10px', color: tema.textMuted, marginTop: '3px' }}>{mod.dias}</div>
           <div style={{ fontSize: '11px', color: '#D4A017', fontWeight: '600', marginTop: '6px' }}>{mod.preco}</div>
           <button
             onClick={() => !contratado && setModalAberto(mod.id)}
             style={{
               width: '100%', marginTop: '8px', padding: '9px',
               background: contratado ? '#4CAF50' : '#CC1A1A',
-              border: 'none', borderRadius: '6px', color: 'white',
+              border: 'none', borderRadius: '6px', color: tema.text,
               fontSize: '11px', fontWeight: '800', letterSpacing: '1px',
               cursor: contratado ? 'default' : 'pointer', textTransform: 'uppercase',
               transition: 'background 0.3s'
@@ -320,7 +322,7 @@ function Home() {
 </div>
 
         {/* ACESSO RÁPIDO */}
-        <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
+        <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: tema.text.Muted, textTransform: 'uppercase' }}>
           Acesso Rápido
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', padding: '0 20px' }}>
@@ -331,26 +333,26 @@ function Home() {
             { icon: '🏆', titulo: 'Meus troféus', sub: '7 conquistados', path: '/perfil' },
           ].map(item => (
             <div key={item.titulo} onClick={() => navigate(item.path)} style={{
-              background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
+              background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '12px', padding: '14px 12px', cursor: 'pointer',
               transition: 'border-color 0.2s', activeStyle: { borderColor: '#CC1A1A' }
             }}>
               <div style={{ fontSize: '22px', marginBottom: '6px' }}>{item.icon}</div>
               <div style={{ fontSize: '13px', fontWeight: '500' }}>{item.titulo}</div>
-              <div style={{ fontSize: '10px', color: item.vermelho ? '#CC1A1A' : '#888', marginTop: '2px' }}>{item.sub}</div>
+              <div style={{ fontSize: '10px', color: item.vermelho ? '#CC1A1A' : tema.textMuted, marginTop: '2px' }}>{item.sub}</div>
             </div>
           ))}
         </div>
 
         {/* MOMENTOS ESPECIAIS */}
-        <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: '#888', textTransform: 'uppercase' }}>
+        <div style={{ padding: '16px 20px 8px', fontSize: '10px', letterSpacing: '2px', color: tema.textMuted, textTransform: 'uppercase' }}>
           Momentos Especiais
         </div>
         <div style={{ display: 'flex', gap: '10px', padding: '0 20px 16px', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {momentosData.map(m => (
             <div key={m.id} onClick={() => setMomentoAberto(m.id)} style={{
               minWidth: '140px', height: '90px', borderRadius: '10px',
-              background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
+              background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', gap: '6px', flexShrink: 0, cursor: 'pointer',
               transition: 'border-color 0.2s'
@@ -367,7 +369,7 @@ function Home() {
       {/* BOTTOM NAV */}
       <div style={{
         position: 'fixed', bottom: 0, left: 0, width: '100%',
-        background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)',
+        background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)',
         display: 'flex', zIndex: 100
       }}>
         {[
@@ -379,7 +381,7 @@ function Home() {
         ].map(item => (
           <button key={item.id} onClick={() => navigate(item.path)} style={{
             flex: 1, padding: '10px 4px 12px', background: 'none', border: 'none',
-            color: item.id === 'home' ? '#CC1A1A' : '#888',
+            color: item.id === 'home' ? '#CC1A1A' : tema.textMuted,
             fontSize: '9px', cursor: 'pointer',
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px'
           }}>
