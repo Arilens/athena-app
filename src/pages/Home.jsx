@@ -25,7 +25,7 @@ const Watermark = () => (
     overflow: 'hidden', alignContent: 'flex-start'
   }}>
     {Array.from({length: 40}).map((_, i) => (
-      <span key={i} style={{ color: tema.text, fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
+      <span key={i} style={{ color: 'white', fontSize: '13px', whiteSpace: 'nowrap', fontWeight: 'bold', letterSpacing: '2px' }}>
         {['ATHENA', '⚡', 'CROSS TRAINING', 'Λ'][i % 4]}
       </span>
     ))}
