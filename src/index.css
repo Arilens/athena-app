@@ -10,35 +10,33 @@ html, body {
 }
 
 body {
-  background: #0d0d0d;
-  color: white;
+  background: var(--bg, #0d0d0d);
+  color: var(--text, #ffffff);
   font-family: sans-serif;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* SCROLLBAR INVISÍVEL */
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface2: #242424;
+  --text: #ffffff;
+  --text-muted: #888888;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: #161616;
+  --header-bg: #111111;
+}
+
+body.claro {
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --surface2: #e8e8e8;
+  --text: #111111;
+  --text-muted: #555555;
+  --border: rgba(0,0,0,0.1);
+  --nav-bg: #ffffff;
+  --header-bg: #ffffff;
+}
+
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; }
-
-/* ACESSO RÁPIDO RESPONSIVO */
-@media (min-width: 768px) {
-  .quick-grid {
-    grid-template-columns: repeat(4, 1fr) !important;
-  }
-}
-
-/* BOTTOM NAV RESPONSIVO */
-@media (min-width: 768px) {
-  .bottom-nav {
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-/* CONTEÚDO CENTRALIZADO NO DESKTOP */
-@media (min-width: 768px) {
-  .app-content {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-}
