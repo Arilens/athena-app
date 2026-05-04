@@ -86,10 +86,10 @@ function Mensagens() {
   // TELA DE CONVERSA ABERTA
   if (conversa) {
     return (
-      <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', display: 'flex', flexDirection: 'column' }}>
         {/* HEADER CONVERSA */}
-        <div style={{ background: tema.headerBg, padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px', position: 'sticky', top: 0, zIndex: 10 }}>
-          <button onClick={() => setConversa(null)} style={{ background: 'none', border: 'none', color: tema.textMuted, fontSize: '22px', cursor: 'pointer' }}>←</button>
+        <div style={{ background: '#111', padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px', position: 'sticky', top: 0, zIndex: 10 }}>
+          <button onClick={() => setConversa(null)} style={{ background: 'none', border: 'none', color: '#888', fontSize: '22px', cursor: 'pointer' }}>←</button>
           <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: conversa.cor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '700', border: conversa.coach ? '1.5px solid #CC1A1A' : 'none', color: 'white' }}>{conversa.initials}</div>
           <div>
             <div style={{ fontSize: '14px', fontWeight: '600' }}>{conversa.nome}</div>
@@ -103,7 +103,7 @@ function Mensagens() {
             <div key={i} style={{ display: 'flex', justifyContent: msg.de === 'eu' ? 'flex-end' : 'flex-start' }}>
               <div style={{
                 maxWidth: '75%', padding: '10px 14px',
-                background: msg.de === 'eu' ? '#CC1A1A' : tema.surface,
+                background: msg.de === 'eu' ? '#CC1A1A' : '#1a1a1a',
                 borderRadius: msg.de === 'eu' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                 border: msg.de === 'eu' ? 'none' : '1px solid rgba(255,255,255,0.08)',
               }}>
@@ -115,7 +115,7 @@ function Mensagens() {
         </div>
 
         {/* INPUT */}
-        <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)', padding: '10px 16px', display: 'flex', gap: '8px', boxSizing: 'border-box' }}>
+        <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)', padding: '10px 16px', display: 'flex', gap: '8px', boxSizing: 'border-box' }}>
           <input
             value={texto}
             onChange={e => setTexto(e.target.value)}
@@ -123,7 +123,7 @@ function Mensagens() {
             placeholder="Digite uma mensagem..."
             style={{ flex: 1, padding: '12px 14px', background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', color: 'white', fontSize: '13px', outline: 'none', fontFamily: 'sans-serif' }}
           />
-          <button onClick={enviar} style={{ width: '44px', height: '44px', background: '#CC1A1A', border: 'none', borderRadius: '50%', color: tema.text, fontSize: '18px', cursor: 'pointer' }}>➤</button>
+          <button onClick={enviar} style={{ width: '44px', height: '44px', background: '#CC1A1A', border: 'none', borderRadius: '50%', color: 'white', fontSize: '18px', cursor: 'pointer' }}>➤</button>
         </div>
       </div>
     )
@@ -131,12 +131,12 @@ function Mensagens() {
 
   // LISTA DE CONVERSAS
   return (
-    <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, position: 'relative' }}>
+    <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', position: 'relative' }}>
       <Watermark />
       <div style={{ zIndex: 1, position: 'relative', paddingBottom: '80px' }}>
 
         {/* HEADER */}
-        <div style={{ background: tema.headerBg, padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ background: '#111', padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img src="/logo.jpeg" alt="Athena" style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1.5px solid #CC1A1A', objectFit: 'cover' }} />
           <div style={{ fontSize: '22px', fontWeight: '900', letterSpacing: '2px' }}>MENSAGENS</div>
         </div>
@@ -146,7 +146,7 @@ function Mensagens() {
           <span style={{ fontSize: '20px' }}>⏰</span>
           <div>
             <div style={{ fontSize: '12px', fontWeight: '600', color: '#FF6B6B' }}>Lembrete automático</div>
-            <div style={{ fontSize: '11px', color: tema.textMuted, marginTop: '2px' }}>Sua aula CrossFit começa em 2 horas — hoje às 19h!</div>
+            <div style={{ fontSize: '11px', color: '#888', marginTop: '2px' }}>Sua aula CrossFit começa em 2 horas — hoje às 19h!</div>
           </div>
         </div>
 
@@ -157,13 +157,13 @@ function Mensagens() {
             padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)',
             cursor: 'pointer', background: conv.naoLidas > 0 ? 'rgba(204,26,26,0.03)' : 'transparent'
           }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: conv.cor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: '700', border: conv.coach ? '1.5px solid #CC1A1A' : 'none', color: tema.text, flexShrink: 0 }}>{conv.initials}</div>
+            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: conv.cor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: '700', border: conv.coach ? '1.5px solid #CC1A1A' : 'none', color: 'white', flexShrink: 0 }}>{conv.initials}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ fontSize: '14px', fontWeight: conv.naoLidas > 0 ? '700' : '500' }}>{conv.nome}</div>
-                <div style={{ fontSize: '10px', color: tema.textMuted }}>{conv.hora}</div>
+                <div style={{ fontSize: '10px', color: '#888' }}>{conv.hora}</div>
               </div>
-              <div style={{ fontSize: '12px', color: tema.textMuted, marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{conv.ultima}</div>
+              <div style={{ fontSize: '12px', color: '#888', marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{conv.ultima}</div>
             </div>
             {conv.naoLidas > 0 && (
               <div style={{ width: '18px', height: '18px', borderRadius: '50%', background: '#CC1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', flexShrink: 0 }}>{conv.naoLidas}</div>
@@ -174,11 +174,11 @@ function Mensagens() {
       </div>
 
       {/* BOTTOM NAV */}
-      <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', zIndex: 100 }}>
+      <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', zIndex: 100 }}>
         {navItems.map(item => (
           <button key={item.id} onClick={() => navigate(item.path)} style={{
             flex: 1, padding: '10px 4px 12px', background: 'none', border: 'none',
-            color: item.id === 'mensagens' ? '#CC1A1A' : tema.textMuted,
+            color: item.id === 'mensagens' ? '#CC1A1A' : '#888',
             fontSize: '9px', cursor: 'pointer',
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px'
           }}>

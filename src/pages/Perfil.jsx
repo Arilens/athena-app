@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { useTema } from '../ThemeContext'
 
 const Watermark = () => (
   <div style={{
@@ -42,12 +41,6 @@ const evolucao = [
 
 function Perfil() {
   const navigate = useNavigate()
-  const tema = useTema()
-
-  useEffect(() => {
-    document.body.style.background = modoEscuro ? '#0d0d0d' : '#f0f0f0'
-    document.body.style.color = modoEscuro ? 'white' : '#111'
-  }, [modoEscuro])
 
   const navItems = [
     { id: 'home', icon: '🏠', label: 'Início', path: '/home' },
@@ -58,12 +51,12 @@ function Perfil() {
   ]
 
   return (
-    <div style={{ background: tema.bg, minHeight: '100vh', fontFamily: 'sans-serif', color: tema.text, position: 'relative' }}>
+    <div style={{ background: '#0d0d0d', minHeight: '100vh', fontFamily: 'sans-serif', color: 'white', position: 'relative' }}>
       <Watermark />
       <div style={{ zIndex: 1, position: 'relative', paddingBottom: '80px' }}>
 
         {/* HERO DO PERFIL */}
-        <div style={{ background: tema.headerBg, padding: '28px 20px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', textAlign: 'center' }}>
+        <div style={{ background: '#111', padding: '28px 20px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', textAlign: 'center' }}>
           <div style={{
             width: '72px', height: '72px', borderRadius: '50%',
             background: '#CC1A1A', display: 'flex', alignItems: 'center',
@@ -116,7 +109,7 @@ function Perfil() {
         <div style={{ padding: '0 16px' }}>
           {planos.map((p, i) => (
             <div key={i} style={{
-              background: tema.surface, border: '1px solid rgba(255,255,255,0.08)',
+              background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '10px', padding: '14px', marginBottom: '8px',
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               opacity: p.ativo ? 1 : 0.5
@@ -175,44 +168,6 @@ function Perfil() {
           ))}
         </div>
 
-        {/* MODO CLARO/ESCURO */}
-<div style={{ padding: '0 16px 12px' }}>
-  <div style={{
-    background: modoEscuro ? '#1a1a1a' : '#e0e0e0',
-    border: `1px solid ${modoEscuro ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)'}`,
-    borderRadius: '10px', padding: '14px 16px',
-    display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-  }}>
-    <div>
-      <div style={{ fontSize: '14px', fontWeight: '500', color: modoEscuro ? 'white' : '#111' }}>
-        {modoEscuro ? '🌙 Modo Escuro' : '☀️ Modo Claro'}
-      </div>
-      <div style={{ fontSize: '11px', color: modoEscuro ? '#888' : '#666', marginTop: '2px' }}>
-        Aparência do app
-      </div>
-    </div>
-    {/* TOGGLE */}
-    <div
-  onClick={tema.toggleModo}
-  style={{
-    width: '48px', height: '26px',
-    background: tema.modoEscuro ? '#CC1A1A' : '#ccc',
-    borderRadius: '13px', position: 'relative', cursor: 'pointer',
-    transition: 'background 0.3s'
-  }}
->
-  <div style={{
-    position: 'absolute', top: '3px',
-    left: tema.modoEscuro ? '25px' : '3px',
-    width: '20px', height: '20px',
-    background: 'white', borderRadius: '50%',
-    transition: 'left 0.3s',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.3)'
-  }} />
-</div>
-  </div>
-</div>
-
         {/* SAIR */}
         <div style={{ padding: '8px 16px 16px' }}>
           <button onClick={() => navigate('/')} style={{
@@ -225,7 +180,7 @@ function Perfil() {
       </div>
 
       {/* BOTTOM NAV */}
-      <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: tema.navBg, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', zIndex: 100 }}>
+      <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', background: '#161616', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', zIndex: 100 }}>
         {navItems.map(item => (
           <button key={item.id} onClick={() => navigate(item.path)} style={{
             flex: 1, padding: '10px 4px 12px', background: 'none', border: 'none',
